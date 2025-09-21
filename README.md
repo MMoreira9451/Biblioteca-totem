@@ -2,7 +2,7 @@
 
 Sistema de autoservicio para biblioteca universitaria que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
 
-## 🚀 Características
+## Características
 
 - **Autoservicio completo**: Escaneo de códigos de barras para operaciones de biblioteca
 - **Gestión de préstamos**: Rentar, devolver, extender y consultar información de libros
@@ -10,7 +10,7 @@ Sistema de autoservicio para biblioteca universitaria que permite a estudiantes 
 - **Interfaz kiosk**: Diseño optimizado para pantalla táctil y uso autónomo
 - **Tiempo real**: Seguimiento de timestamps y estados de préstamos
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ```
 library-kiosk/
@@ -20,7 +20,7 @@ library-kiosk/
 └── .env.example
 ```
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Backend
 - **Python 3.11** + **Flask** + **SQLAlchemy 2.x**
@@ -38,7 +38,7 @@ library-kiosk/
 - **Adminer** para administración de BD
 - Logs estructurados en JSON
 
-## 🚦 Quick Start
+## Quick Start
 
 ### Prerequisitos
 - Docker y Docker Compose instalados
@@ -105,22 +105,22 @@ Email: juan.perez@uai.edu
 Password: student123
 ```
 
-## 📋 Flujos de Usuario
+## Flujos de Usuario
 
 ### Estudiante (STUDENT)
 1. **Escanear código** → Input manual o cámara
 2. **Seleccionar acción**:
-   - 📚 **Rentar**: Cambia estado a 'Prestado', inicia timestamp
-   - 📤 **Devolver**: Actualiza estado, registra devolución  
-   - 📖 **Ver info**: Muestra detalles del libro
-   - ⏰ **Extender**: Añade días según reglas de negocio
+   - **Rentar**: Cambia estado a 'Prestado', inicia timestamp
+   - **Devolver**: Actualiza estado, registra devolución  
+   - **Ver info**: Muestra detalles del libro
+   - **Extender**: Añade días según reglas de negocio
 
 ### Administrador (ADMIN)
 - Dashboard con métricas y gestión
 - CRUD de libros y usuarios
 - Configuración de reglas de préstamo
 
-## 🗃️ Modelo de Datos
+## Modelo de Datos
 
 ### Entidades Principales
 - **User**: Estudiantes y administradores
@@ -133,7 +133,7 @@ Password: student123
 - `RESERVED`: Reservado
 - `MAINTENANCE`: En mantenimiento
 
-## 🔧 Desarrollo
+## Desarrollo
 
 ### Backend
 ```bash
@@ -155,7 +155,7 @@ npm run test      # Ejecutar tests
 npm run lint      # Linting
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Backend
 ```bash
@@ -173,7 +173,7 @@ cd frontend
 npm run test
 ```
 
-## 📦 Despliegue
+## Despliegue
 
 ### Producción completa
 ```bash
@@ -185,20 +185,20 @@ docker-compose -f docker-compose.prod.yml up -d
 docker-compose up -d db backend frontend
 ```
 
-## 📊 Monitoreo
+## Monitoreo
 
 - **Health Check**: `GET /healthz`
 - **Logs**: Estructura JSON para agregación
 - **Métricas**: Dashboard admin con estadísticas de uso
 
-## 🔐 Seguridad
+## Seguridad
 
 - Autenticación JWT con refresh tokens
 - Validación de entrada con Pydantic
 - CORS configurado para frontend
 - Variables sensibles en .env
 
-## 📚 API Endpoints
+## API Endpoints
 
 ### Autenticación
 - `POST /auth/login` - Login de usuario
@@ -215,20 +215,3 @@ docker-compose up -d db backend frontend
 - `POST /loans/extend` - Extender préstamo
 - `GET /loans/user/{user_id}` - Préstamos de usuario
 
-## 🤝 Contribución
-
-1. Fork del proyecto
-2. Crear feature branch (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit cambios (`git commit -am 'Agregar nueva funcionalidad'`)
-4. Push al branch (`git push origin feature/nueva-funcionalidad`)
-5. Crear Pull Request
-
-## 📄 Licencia
-
-MIT License - ver archivo LICENSE para detalles.
-
-## 🆘 Soporte
-
-Para issues y preguntas:
-- GitHub Issues: [Crear issue](https://github.com/tu-org/library-kiosk/issues)
-- Documentación: [Wiki del proyecto](https://github.com/tu-org/library-kiosk/wiki)
