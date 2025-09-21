@@ -6,9 +6,9 @@ Sistema de autoservicio para biblioteca universitaria que permite a estudiantes 
 
 - **Autoservicio completo**: Escaneo de códigos de barras para operaciones de biblioteca
 - **Gestión de préstamos**: Rentar, devolver, extender y consultar información de libros
-- **Control de acceso**: Roles de STUDENT y ADMIN con permisos diferenciados
+- **Control de acceso**: Roles de CLIENT y ADMIN con permisos diferenciados
 - **Interfaz kiosk**: Diseño optimizado para pantalla táctil y uso autónomo
-- **Tiempo real**: Seguimiento de timestamps y estados de préstamos
+- **Transaccionalidad**: Seguimiento de timestamps y estados de préstamos de manera integra para que no ocurran problemas en la base de datos
 
 ## Arquitectura
 
@@ -24,7 +24,7 @@ library-kiosk/
 
 ### Backend
 - **Python 3.11** + **Flask** + **SQLAlchemy 2.x**
-- **MySQL 8.x** con **Alembic** para migraciones
+- **MySQL 8.x** con transaccionalidad para asegurar el correcto manejo de datos
 - **JWT** para autenticación
 - **Pydantic** para validación de esquemas
 
@@ -126,6 +126,7 @@ Password: student123
 - **User**: Estudiantes y administradores
 - **Book**: Catálogo de libros con códigos de barras
 - **Loan**: Registro de préstamos con timestamps
+- **Totem**: Dispositivo lector e interativo
 
 ### Estados de Libro
 - `AVAILABLE`: Disponible para préstamo
