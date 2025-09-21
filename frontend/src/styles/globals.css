@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Kiosk-specific styles */
+  .kiosk-container {
+    @apply min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 sm:p-6 lg:p-8;
+  }
+  
+  .kiosk-card {
+    @apply bg-white rounded-2xl shadow-xl border border-gray-200 p-6 sm:p-8;
+  }
+  
+  .kiosk-button {
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-4 text-lg font-semibold 
+           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed min-h-[3.5rem] min-w-[8rem]
+           touch-manipulation select-none;
+  }
+  
+  .kiosk-button-primary {
+    @apply kiosk-button bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .kiosk-button-secondary {
+    @apply kiosk-button bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500
+           border border-gray-300;
+  }
+  
+  .kiosk-button-success {
+    @apply kiosk-button bg-green-600 text-white hover:bg-green-700 focus:ring-green-500
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .kiosk-button-warning {
+    @apply kiosk-button bg-amber-500 text-white hover:bg-amber-600 focus:ring-amber-500
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .kiosk-button-danger {
+    @apply kiosk-button bg-red-600 text-white hover:bg-red-700 focus:ring-red-500
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+  
+  .kiosk-input {
+    @apply block w-full rounded-xl border-2 border-gray-300 px-4 py-3 text-lg
+           placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500
+           disabled:bg-gray-50 disabled:text-gray-500 min-h-[3.5rem]
+           transition-colors duration-200;
+  }
+  
+  .kiosk-scanner-area {
+    @apply relative overflow-hidden rounded-xl border-4 border-dashed border-gray-300
+           bg-gray-50 hover:border-blue-400 transition-colors duration-200;
+  }
+  
+  .kiosk-scanner-active {
+    @apply border-blue-500 bg-blue-50;
+  }
+  
+  .book-card {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md
+           transition-shadow duration-200 p-4;
+  }
+  
+  .status-badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-sm font-medium;
+  }
+  
+  .status-available {
+    @apply status-badge bg-green-100 text-green-800;
+  }
+  
+  .status-loaned {
+    @apply status-badge bg-red-100 text-red-800;
+  }
+  
+  .status-reserved {
+    @apply status-badge bg-yellow-100 text-yellow-800;
+  }
+  
+  .status-maintenance {
+    @apply status-badge bg-gray-100 text-gray-800;
+  }
+  
+  /* Touch-friendly spacing */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Prevent text selection in kiosk mode */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-blue-600;
+  }
+  
+  .loading-dots {
+    @apply inline-flex space-x-1;
+  }
+  
+  .loading-dot {
+    @apply h-2 w-2 bg-current rounded-full animate-bounce;
+  }
+  
+  .loading-dot:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  
+  .loading-dot:nth-child(2) {
+    animation-delay: 150ms;
+  }
+  
+  .loading-dot:nth-child(3) {
+    animation-delay: 300ms;
+  }
+}
+
+@layer utilities {
+  /* Kiosk mode utilities */
+  .kiosk-mode {
+    @apply select-none overflow-hidden;
+  }
+  
+  .kiosk-fullscreen {
+    @apply fixed inset-0 z-50;
+  }
+  
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Scanner overlay styles */
+.scanner-overlay {
+  position: relative;
+}
+
+.scanner-overlay::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #ef4444, transparent);
+  animation: scanLine 2s infinite linear;
+  z-index: 10;
+}
+
+@keyframes scanLine {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
