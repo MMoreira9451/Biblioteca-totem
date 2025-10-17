@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from sqlalchemy import text
 
 from app.config import get_config
 from app.db.session import db
@@ -43,7 +44,7 @@ def create_app() -> Flask:
         """Health check endpoint for monitoring."""
         try:
             # Test database connection
-            db.session.execute("SELECT 1")
+            db.session.execute(text("SELECT 1"))
             return jsonify({
                 "status": "healthy",
                 "timestamp": datetime.utcnow().isoformat(),

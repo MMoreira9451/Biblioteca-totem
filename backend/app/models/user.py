@@ -33,8 +33,9 @@ class User(db.Model, TimestampMixin):
     
     # Relationships
     loans: Mapped[List["Loan"]] = relationship(
-        "Loan", 
-        back_populates="user", 
+        "Loan",
+        back_populates="user",
+        foreign_keys="Loan.user_id",
         lazy="dynamic"
     )
     

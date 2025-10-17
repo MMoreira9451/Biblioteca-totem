@@ -4,8 +4,7 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     POETRY_NO_INTERACTION=1 \
-    POETRY_VENV_IN_PROJECT=1 \
-    POETRY_CACHE_DIR=/tmp/poetry_cache
+    POETRY_VIRTUALENVS_CREATE=false
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -25,7 +24,7 @@ WORKDIR /app
 COPY pyproject.toml poetry.lock* ./
 
 # Install Python dependencies
-RUN poetry install --only=main --no-root && rm -rf $POETRY_CACHE_DIR
+RUN poetry install --only=main --no-root
 
 # Copy application code
 COPY . .
@@ -46,4 +45,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/healthz || exit 1
 
 # Run the application
-CMD ["poetry", "run", "gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120", "app.main:create_app()"]
+CMD ["python", "-m", "app.main"]

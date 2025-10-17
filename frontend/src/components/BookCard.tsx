@@ -1,8 +1,7 @@
-import React from 'react'
-import { 
-  Calendar, 
-  User, 
-  Clock, 
+import {
+  Calendar,
+  User,
+  Clock,
   AlertTriangle,
   CheckCircle,
   XCircle

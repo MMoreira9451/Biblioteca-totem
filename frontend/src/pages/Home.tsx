@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 import KioskMenu from '../components/KioskMenu'
-import BarcodeScanner from '../components/BarcodeScanner'
+import BarcodeInput from '../components/BarcodeInput'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -44,8 +44,8 @@ export default function Home() {
   return (
     <>
       <KioskMenu onBarcodeAction={handleBarcodeAction} />
-      
-      <BarcodeScanner
+
+      <BarcodeInput
         isActive={scannerActive}
         onScan={handleBarcodeScan}
         onClose={handleScannerClose}
