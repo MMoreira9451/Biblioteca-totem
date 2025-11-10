@@ -26,6 +26,10 @@ def require_auth(f):
     """Decorator to require authentication."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        # Allow CORS preflight without auth to avoid failing OPTIONS requests
+        if request.method == "OPTIONS":
+            return current_app.make_default_options_response()
+        
         user = get_current_user()
         if not user:
             return jsonify({

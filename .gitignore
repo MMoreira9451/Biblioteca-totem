@@ -111,3 +111,4 @@ alembic/versions/*
 # Misc
 *.tgz
 *.tar.gz
+AGENTS.md

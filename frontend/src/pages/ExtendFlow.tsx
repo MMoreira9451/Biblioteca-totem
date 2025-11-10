@@ -13,7 +13,8 @@ interface Loan {
   return_date: string | null
   extensions_count: number
   is_overdue: boolean
-  days_until_due: number
+  days_remaining: number
+  days_overdue: number
 }
 
 export default function ExtendFlow() {
@@ -155,8 +156,18 @@ export default function ExtendFlow() {
                 </div>
                 <div className="flex justify-between py-2 border-b border-gray-200">
                   <span className="text-gray-600">Días hasta vencimiento:</span>
-                  <span className={`font-semibold ${loan.days_until_due < 0 ? 'text-red-600' : loan.days_until_due <= 3 ? 'text-amber-600' : 'text-green-600'}`}>
-                    {loan.days_until_due < 0 ? `Vencido hace ${Math.abs(loan.days_until_due)} días` : `${loan.days_until_due} días`}
+                  <span
+                    className={`font-semibold ${
+                      loan.is_overdue
+                        ? 'text-red-600'
+                        : loan.days_remaining <= 3
+                        ? 'text-amber-600'
+                        : 'text-green-600'
+                    }`}
+                  >
+                    {loan.is_overdue
+                      ? `Vencido hace ${loan.days_overdue} días`
+                      : `${loan.days_remaining} días`}
                   </span>
                 </div>
               </div>

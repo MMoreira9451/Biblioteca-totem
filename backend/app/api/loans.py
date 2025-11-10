@@ -261,6 +261,34 @@ def extend_loan():
         }), 500
 
 
+@bp.route("/active", methods=["GET"])
+@require_student_or_admin
+def list_active_loans():
+    """List active loans for current user (admin can filter by user)."""
+    current_user = g.current_user
+    user_id = request.args.get("user_id", type=int)
+    book_id = request.args.get("book_id", type=int)
+    
+    query = db.session.query(Loan).filter(
+        Loan.status.in_([LoanStatus.ACTIVE, LoanStatus.EXTENDED, LoanStatus.OVERDUE])
+    )
+    
+    if book_id:
+        query = query.filter(Loan.book_id == book_id)
+    
+    if user_id:
+        query = query.filter(Loan.user_id == user_id)
+    elif not current_user.is_admin:
+        query = query.filter(Loan.user_id == current_user.id)
+    
+    loans = query.order_by(Loan.due_date.asc()).all()
+    
+    return jsonify({
+        "loans": [loan.to_dict() for loan in loans],
+        "total": len(loans)
+    })
+
+
 @bp.route("/user/<int:user_id>", methods=["GET"])
 @require_student_or_admin
 def get_user_loans(user_id: int):
