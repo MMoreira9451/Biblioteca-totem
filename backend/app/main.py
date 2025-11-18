@@ -9,7 +9,7 @@ from sqlalchemy import text
 
 from app.config import get_config
 from app.db.session import db
-from app.api import books, loans, auth
+from app.api import books, loans, auth, users
 from app.models import user, book, loan
 
 
@@ -20,13 +20,23 @@ def create_app() -> Flask:
     # Load configuration
     config = get_config()
     app.config.from_object(config)
-    
+
+    app.url_map.strict_slashes = False    
     # Configure logging
     setup_logging(app)
     
     # Initialize extensions
     db.init_app(app)
-    CORS(app, origins=config.ALLOWED_ORIGINS)
+    CORS(app, 
+     resources={
+         r"/*": {
+             "origins": config.ALLOWED_ORIGINS,
+             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+             "allow_headers": ["Content-Type", "Authorization"],
+             "supports_credentials": True,
+             "max_age": 3600
+         }
+     })
     JWTManager(app)
     Migrate(app, db)
     
@@ -34,6 +44,7 @@ def create_app() -> Flask:
     app.register_blueprint(auth.bp, url_prefix="/auth")
     app.register_blueprint(books.bp, url_prefix="/books")
     app.register_blueprint(loans.bp, url_prefix="/loans")
+    app.register_blueprint(users.bp, url_prefix="/users")  # New users endpoint
     
     # Register error handlers
     register_error_handlers(app)
@@ -69,7 +80,8 @@ def create_app() -> Flask:
                 "health": "/healthz",
                 "auth": "/auth/*",
                 "books": "/books/*",
-                "loans": "/loans/*"
+                "loans": "/loans/*",
+                "users": "/users/*"
             }
         })
     
@@ -163,7 +175,7 @@ def register_error_handlers(app: Flask) -> None:
     
     @app.errorhandler(500)
     def internal_error(error):
-        app.logger.error(f"Internal server error: {str(error)}")
+        app.logger.error(f"Internal server error: {str(e)}")
         db.session.rollback()
         return jsonify({
             "error": "Internal Server Error",

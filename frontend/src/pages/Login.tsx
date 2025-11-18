@@ -21,10 +21,11 @@ export default function Login() {
     }
   }, [isAuthenticated, navigate])
 
-  // Clear error when component unmounts
-  useEffect(() => {
-    return () => clearError()
-  }, [clearError])
+  // // Clear error when component unmounts
+  // useEffect(() => {
+  //   return () => clearError()
+  // }, [clearError])
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,15 +45,14 @@ export default function Login() {
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-    
-    // Clear error when user starts typing
-    if (error) {
-      clearError()
-    }
-  }
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value
+  })
+}
+
+
 
   const quickLoginOptions = [
     {
@@ -70,6 +70,7 @@ export default function Login() {
   const handleQuickLogin = (email: string, password: string) => {
     setFormData({ email, password })
   }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center p-4">

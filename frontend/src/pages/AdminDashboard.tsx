@@ -1,50 +1,97 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Settings } from 'lucide-react'
+import { ArrowLeft, Users, BookOpen, Search, TrendingUp } from 'lucide-react'
+import UserManagement from '../components/admin/UserManagement'
+import BookSearch from '../components/admin/BookSearch'
+import Statistics from '../components/admin/Statistics'
+
+type TabType = 'users' | 'books' | 'stats'
 
 export default function AdminDashboard() {
   const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState<TabType>('stats')
+
+  const tabs = [
+    {
+      id: 'stats' as TabType,
+      label: 'Estadísticas',
+      icon: <TrendingUp className="h-5 w-5" />,
+      description: 'Métricas y reportes del sistema'
+    },
+    {
+      id: 'users' as TabType,
+      label: 'Usuarios',
+      icon: <Users className="h-5 w-5" />,
+      description: 'Gestión de estudiantes y préstamos'
+    },
+    {
+      id: 'books' as TabType,
+      label: 'Búsqueda de Libros',
+      icon: <Search className="h-5 w-5" />,
+      description: 'Buscar libros y ver disponibilidad'
+    }
+  ]
 
   return (
     <div className="kiosk-container">
-      <div className="max-w-4xl mx-auto">
-        <button
-          onClick={() => navigate('/')}
-          className="kiosk-button-secondary mb-6"
-        >
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Volver
-        </button>
-        
-        <div className="text-center mb-8">
-          <Settings className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Panel Administrativo
-          </h1>
-          <p className="text-xl text-gray-600">
-            Funcionalidad en desarrollo
-          </p>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center">
+            <button
+              onClick={() => navigate('/')}
+              className="kiosk-button-secondary mr-4"
+            >
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Volver
+            </button>
+            
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Panel Administrativo
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Gestión del sistema de biblioteca
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="kiosk-card">
-            <h3 className="text-lg font-semibold mb-2">Gestión de Libros</h3>
-            <p className="text-gray-600">Crear, editar y administrar el catálogo de libros</p>
+        {/* Tabs Navigation */}
+        <div className="bg-white rounded-2xl shadow-lg mb-6">
+          <div className="border-b border-gray-200">
+            <nav className="flex space-x-1 p-2">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                    flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-200
+                    ${activeTab === tab.id
+                      ? 'bg-blue-50 text-blue-700 shadow-sm'
+                      : 'text-gray-600 hover:bg-gray-50'
+                    }
+                  `}
+                >
+                  {tab.icon}
+                  <span className="ml-2">{tab.label}</span>
+                </button>
+              ))}
+            </nav>
           </div>
-          
-          <div className="kiosk-card">
-            <h3 className="text-lg font-semibold mb-2">Gestión de Usuarios</h3>
-            <p className="text-gray-600">Administrar estudiantes y permisos</p>
+
+          <div className="p-2">
+            <p className="text-sm text-gray-500 px-4 py-2">
+              {tabs.find(t => t.id === activeTab)?.description}
+            </p>
           </div>
-          
-          <div className="kiosk-card">
-            <h3 className="text-lg font-semibold mb-2">Préstamos Activos</h3>
-            <p className="text-gray-600">Ver y gestionar préstamos en curso</p>
-          </div>
-          
-          <div className="kiosk-card">
-            <h3 className="text-lg font-semibold mb-2">Reportes</h3>
-            <p className="text-gray-600">Estadísticas y métricas del sistema</p>
-          </div>
+        </div>
+
+        {/* Tab Content */}
+        <div className="animate-fade-in">
+          {activeTab === 'stats' && <Statistics />}
+          {activeTab === 'users' && <UserManagement />}
+          {activeTab === 'books' && <BookSearch />}
         </div>
       </div>
     </div>
