@@ -40,11 +40,6 @@ export default function AdminDashboard() {
             <h3 className="text-lg font-semibold mb-2">Préstamos Activos</h3>
             <p className="text-gray-600">Ver y gestionar préstamos en curso</p>
           </div>
-          
-          <div className="kiosk-card">
-            <h3 className="text-lg font-semibold mb-2">Reportes</h3>
-            <p className="text-gray-600">Estadísticas y métricas del sistema</p>
-          </div>
         </div>
       </div>
     </div>
