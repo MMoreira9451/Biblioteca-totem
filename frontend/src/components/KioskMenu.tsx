@@ -10,6 +10,7 @@ import {
   QrCode
 } from 'lucide-react'
 import { useAuthStore } from '../store/authStore'
+import SearchBar from './SearchBar'  // ← NUEVA IMPORTACIÓN
 
 interface MenuOption {
   id: string
@@ -98,7 +99,7 @@ export default function KioskMenu({ onBarcodeAction }: KioskMenuProps) {
           </p>
           
           {/* User welcome */}
-          <div className="mt-6 flex items-center justify-between bg-white rounded-xl shadow-lg p-4">
+          <div className="mt-6 flex items-center justify-between bg-white rounded-xl shadow-lg p-4 mb-8">
             <div className="flex items-center">
               <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
                 <span className="text-blue-600 font-semibold text-lg">
@@ -123,6 +124,9 @@ export default function KioskMenu({ onBarcodeAction }: KioskMenuProps) {
               Salir
             </button>
           </div>
+
+          {/* Barra de búsqueda - AQUÍ VA DEBAJO DEL MENSAJE */}
+          <SearchBar />
         </div>
 
         {/* Menu Grid */}
@@ -202,9 +206,9 @@ export default function KioskMenu({ onBarcodeAction }: KioskMenuProps) {
               ¿Cómo usar el sistema?
             </h3>
             <div className="text-blue-800 text-sm space-y-1">
-              <p>1. Selecciona la acción que deseas realizar</p>
-              <p>2. Escanea el código de barras del libro con la cámara</p>
-              <p>3. Sigue las instrucciones en pantalla</p>
+              <p>1. Usa la barra de búsqueda para encontrar libros en el catálogo</p>
+              <p>2. O selecciona la acción que deseas realizar</p>
+              <p>3. Escanea el código de barras del libro con la pistora lectora</p>
               <p>4. ¡Listo! Tu operación ha sido completada</p>
             </div>
           </div>

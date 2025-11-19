@@ -17,7 +17,6 @@ export default function Home() {
   const handleBarcodeScan = (barcode: string) => {
     setScannerActive(false)
     
-    // Navigate to appropriate flow based on action
     switch (currentAction) {
       case 'rent':
         navigate(`/rent?barcode=${encodeURIComponent(barcode)}`)
@@ -43,8 +42,11 @@ export default function Home() {
 
   return (
     <>
+
+      {/* Menú existente */}
       <KioskMenu onBarcodeAction={handleBarcodeAction} />
 
+      {/* Scanner */}
       <BarcodeInput
         isActive={scannerActive}
         onScan={handleBarcodeScan}
