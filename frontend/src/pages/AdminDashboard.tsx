@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Users, BookOpen, Search, TrendingUp } from 'lucide-react'
+import { ArrowLeft, Users, Search, TrendingUp } from 'lucide-react'
 import UserManagement from '../components/admin/UserManagement'
 import BookSearch from '../components/admin/BookSearch'
 import Statistics from '../components/admin/Statistics'

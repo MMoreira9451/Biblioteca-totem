@@ -9,6 +9,7 @@ from sqlalchemy import text
 
 from app.config import get_config
 from app.db.session import db
+from app.db.bootstrap import initialize_database
 from app.api import books, loans, auth, users
 from app.models import user, book, loan
 
@@ -39,6 +40,7 @@ def create_app() -> Flask:
      })
     JWTManager(app)
     Migrate(app, db)
+    initialize_database(app)
     
     # Register blueprints
     app.register_blueprint(auth.bp, url_prefix="/auth")
@@ -175,7 +177,7 @@ def register_error_handlers(app: Flask) -> None:
     
     @app.errorhandler(500)
     def internal_error(error):
-        app.logger.error(f"Internal server error: {str(e)}")
+        app.logger.error(f"Internal server error: {str(error)}")
         db.session.rollback()
         return jsonify({
             "error": "Internal Server Error",

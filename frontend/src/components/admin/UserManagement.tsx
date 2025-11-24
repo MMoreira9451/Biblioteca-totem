@@ -33,6 +33,12 @@ interface LoanData {
     author: string
     barcode: string
   }
+  user?: {
+    id: number
+    email: string
+    full_name: string
+    role: string
+  }
   loan_date: string
   due_date: string
   return_date?: string

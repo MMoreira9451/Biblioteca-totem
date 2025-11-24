@@ -6,7 +6,7 @@ import { useAuthStore } from '../store/authStore'
 
 export default function Login() {
   const navigate = useNavigate()
-  const { login, isLoading, error, clearError, isAuthenticated } = useAuthStore()
+  const { login, isLoading, error, isAuthenticated } = useAuthStore()
   
   const [formData, setFormData] = useState({
     email: '',
