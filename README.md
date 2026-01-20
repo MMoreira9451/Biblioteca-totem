@@ -1,6 +1,10 @@
 # Tótem Biblioteca UAI
 
-Sistema de autoservicio para biblioteca universitaria que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
+<<<<<<< HEAD
+Sistema de autoservicio para biblioteca universitaria (ajuste en rama ejemplo) que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
+=======
+Sistema de autoservicio para biblioteca universitaria (cambio demo conflicto) que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
+>>>>>>> conflicto-demo
 
 ## Características
 
@@ -215,4 +219,3 @@ docker-compose up -d db backend frontend
 - `POST /loans/return` - Devolver libro
 - `POST /loans/extend` - Extender préstamo
 - `GET /loans/user/{user_id}` - Préstamos de usuario
-
