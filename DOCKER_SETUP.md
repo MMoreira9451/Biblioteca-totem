@@ -1,14 +1,5 @@
 # Configuración de Docker para Biblioteca Totem
 
-## Resumen del Sistema
-
-El proyecto "Biblioteca Totem" está completamente containerizado usando Docker y Docker Compose, con una arquitectura de microservicios que incluye:
-
-- **Frontend**: React + TypeScript + Vite servido por Nginx
-- **Backend**: Flask (Python) con Poetry para gestión de dependencias
-- **Base de Datos**: MySQL 8.0
-- **Administrador DB**: Adminer para gestión visual de la base de datos
-
 ## Arquitectura Docker
 
 ```
@@ -30,28 +21,7 @@ El proyecto "Biblioteca Totem" está completamente containerizado usando Docker 
 │                    │   Port 3307    │                    │
 │                    │ (host:3307->   │                    │
 │                    │  container:    │                    │
-│                    │     3306)      │                    │
-│                    └────────────────┘                    │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
-```
-
-## Problemas Encontrados y Soluciones
-
-### 1. **Error: Backend no podía importar módulos de Flask**
-
-**Problema**: El contenedor del backend entraba en un loop infinito de reinicios con error:
-```
-ModuleNotFoundError: No module named 'flask'
-```
-
-**Causa**: Poetry estaba instalando los paquetes en un virtualenv dentro del contenedor, pero el comando `CMD ["python", "-m", "app.main"]` ejecutaba Python del sistema, que no tenía acceso al virtualenv.
-
-**Solución**:
-```dockerfile
-# En backend/Dockerfile
-ENV POETRY_VIRTUALENVS_CREATE=false
-```
+│  
 
 Esto hace que Poetry instale todos los paquetes directamente en el Python del sistema del contenedor, haciéndolos accesibles globalmente.
 
@@ -66,23 +36,7 @@ Esto hace que Poetry instale todos los paquetes directamente en el Python del si
 AmbiguousForeignKeysError: Could not determine join condition between parent/child tables on relationship User.loans
 ```
 
-**Causa**: La tabla `loans` tiene múltiples foreign keys hacia `users` (user_id, created_by, returned_by), y SQLAlchemy no sabía cuál usar para la relación principal.
-
-**Solución**:
-```python
-# En backend/app/models/user.py
-loans: Mapped[List["Loan"]] = relationship(
-    "Loan",
-    back_populates="user",
-    foreign_keys="Loan.user_id",  # Especificar cuál FK usar
-    lazy="dynamic"
-)
-```
-
-**Archivo modificado**: `backend/app/models/user.py:35-40`
-
----
-
+**Causa**
 ### 3. **Error: SQLAlchemy 2.x - SELECT sin text()**
 
 **Problema**:
@@ -96,7 +50,7 @@ Textual SQL expression 'SELECT 1' should be explicitly declared as text('SELECT 
 ```python
 # En backend/app/main.py
 from sqlalchemy import text
-
+saphdjikasbgshdokasghdiulabsi
 # En el health check
 db.session.execute(text("SELECT 1"))
 ```
@@ -108,17 +62,8 @@ db.session.execute(text("SELECT 1"))
 ---
 
 ### 4. **Error: Puerto MySQL en uso (3306)**
+asbdguas
 
-**Problema**:
-```
-Ports are not available: listen tcp 0.0.0.0:3306: bind: Only one usage of each socket address is normally permitted
-```
-
-**Causa**: MySQL local ya estaba usando el puerto 3306.
-
-**Solución**: Cambiar el mapeo de puertos en docker-compose.yml:
-```yaml
-db:
   ports:
     - "3307:3306"  # Host usa 3307, contenedor usa 3306
 ```
