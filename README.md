@@ -1,6 +1,10 @@
 # Tótem Biblioteca UAI
 
+<<<<<<< HEAD
 Sistema de autoservicio para biblioteca universitaria (ajuste en rama ejemplo) que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
+=======
+Sistema de autoservicio para biblioteca universitaria (cambio demo conflicto) que permite a estudiantes rentar, devolver y gestionar préstamos de libros mediante lectura de códigos de barras.
+>>>>>>> conflicto-demo
 
 ## Características
 
